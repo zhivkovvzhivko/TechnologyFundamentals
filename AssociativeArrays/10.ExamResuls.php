@@ -1,10 +1,10 @@
 <?php
 
-$input = readline();
 $students = [];
 $submissions = [];
 
 while (1) {
+$input = readline();
 	if ($input==='exam finished') {
 		break;
 	}
@@ -13,11 +13,8 @@ while (1) {
 	$student = $args[0];
 	$technology = $args[1];
 	if ($technology==='banned') {
-		$index = array_search($student, $students);
-		if ($index !== false) {
-			array_splice($students, $index, 1);
+			unset($students[$student]);
 			continue;
-		}
 	} else {
 		$points = $args[2];
 
@@ -32,7 +29,7 @@ while (1) {
 			// $students['kiro'] = 84;
 		} else {
 			if ($students[$student] < $points) {
-				$students[$student] = $poins;
+				$students[$student] = $points;
 			}
 		}
 	}
@@ -48,17 +45,20 @@ uksort($students, function($student1, $student2)use ($students){
 });
 
 uksort($submissions, function($tech1, $tech2)use ($submissions){
-	$count1 = $submissions[$student1];
-	$count2 = $submissions[$student2];
+	$count1 = $submissions[$tech1];
+	$count2 = $submissions[$tech2];
 	if ($count1===$count2) {
-		return $student1 <=> $student2;
+		return $tech1 <=> $tech2;
 	}
-	return $count2 <=> $count1;
+	return $tech1 <=> $tech2;
 });
 
-echo "Result:\n";
+echo "Results:\n";
 foreach ($students as $student => $points) {
-	echo "$student | $points";
+	echo "$student | $points\n";
 }
 
-
+echo "Submissions:\n";
+foreach ($submissions as $tech => $count) {
+	echo "$tech - $count\n";
+}
