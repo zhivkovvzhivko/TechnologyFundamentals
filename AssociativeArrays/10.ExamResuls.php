@@ -4,7 +4,7 @@ $students = [];
 $submissions = [];
 
 while (1) {
-$input = readline();
+	$input = readline();
 	if ($input==='exam finished') {
 		break;
 	}
